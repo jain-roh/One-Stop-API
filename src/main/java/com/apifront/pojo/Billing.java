@@ -80,6 +80,22 @@ public API getApi() {
 	return api;
 }
 
+public boolean isPaid() {
+	return paid;
+}
+
+public void setPaid(boolean paid) {
+	this.paid = paid;
+}
+
+public double getCost() {
+	return cost;
+}
+
+public void setCost(double cost) {
+	this.cost = cost;
+}
+
 public void setApi(API api) {
 	this.api = api;
 }

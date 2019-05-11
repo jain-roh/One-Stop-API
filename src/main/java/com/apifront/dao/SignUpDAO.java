@@ -5,6 +5,9 @@ import org.hibernate.Query;
 import com.apifront.CustomException.UserException;
 import com.apifront.pojo.Business;
 import com.apifront.pojo.User;
+
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Projections;
@@ -51,6 +54,53 @@ public class SignUpDAO extends DAO {
 		} catch (HibernateException e) {
 			rollback();
 			throw new UserException("Username Already exist");
+		}
+	}
+	
+	public boolean searchBusiness(Business b) throws UserException {
+		begin();
+		Query q = getSession().createQuery("from Business where userName = :userName");
+		q.setString("userName", b.getUserName());
+		Business user = (Business) q.uniqueResult();
+		if(user!=null)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	
+	public List<Business> fetchBusiness() throws UserException {
+		try {
+			begin();
+			Query q = getSession().createQuery("from Business");
+			//q.setString("userName", b.getUserName());
+			List<Business> business = q.list();
+			return business;
+				
+		} catch (HibernateException e) {
+			rollback();
+			throw e;
+			//throw new UserException("Username Already exist");
+		}
+	}
+	
+	
+	public List<User> fetchUser() throws UserException {
+		try {
+			begin();
+			Query q = getSession().createQuery("from User");
+			//q.setString("userName", b.getUserName());
+			List<User> user = q.list();
+			return user;
+				
+		} catch (HibernateException e) {
+			rollback();
+			throw e;
+			//throw new UserException("Username Already exist");
 		}
 	}
 	public User register(User u) throws UserException {

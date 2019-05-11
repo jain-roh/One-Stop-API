@@ -14,10 +14,10 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Add Api</title>
+  <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
-  <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
@@ -31,10 +31,10 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/controller">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -51,6 +51,47 @@
           <span>API</span></a>
       </li>
 
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Settings
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Profile</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Basic Details</h6>
+            <a class="collapse-item" href="image/upload.htm">Image</a>
+            <a class="collapse-item" href="cards.html">Profile</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span>Billing Details</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Profiles:</h6>
+            <a class="collapse-item" href="utilities-color.html">Businesses</a>
+            <a class="collapse-item" href="utilities-border.html">Users</a>
+            
+          </div>
+        </div>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
 
       <!-- Heading -->
     
@@ -84,36 +125,52 @@
 
 
         </nav>
-    
-          <!-- End of Topbar -->
- <div class="container">
+        <!-- End of Topbar -->
 
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">${api.getApiName()}</h1>
-<c:if test="${viewPurchase==true}">
- <input type="button"  onclick="myFunction(${api.getAPIId()})" id="purchase" class="btn btn-large btn-primary" data-toggle="confirmation" 
-  value="Purchase"/>          
-  </c:if>
-  
-  </div>
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+            <a href="logout.htm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Logout</a>
+          </div>
+
+          <!-- Content Row -->
           
-           
-          <div  class="d-sm-flex align-items-left justify-content-between mb-4">
-            <p class="p mb-0 text-gray-800">API Cost : ${api.getApiCost()}</p>
+          <!-- Content Row -->
+
+          <div class="row">
+
+		<table border="1">
+		<tr>
+		<th>Business ID</th>
+		<th>Business Name</th>
+		<th>Business API Count</th>
+		<th>Business Username</th>
+		</tr>
+		<c:forEach items="${business}" var="business">
+		<tr>
+		<td>${business.getUserId() }
+		</td>
+		
+		<td>${business.getUserName() }
+		</td>
+		
+				
+		<td>${business.getApi().size() }
+		</td>
+		<td>${business.getName() }
+		</td>
+		</c:forEach>
+		</table>
+		
           </div>
-           
-           <div style="background-color: #e6e6ff;padding:12px;" class="d-sm-flex align-items-left justify-content-between mb-4">
-            <p class="p mb-0 text-gray-800">${api.getApiDesc()}</p>
-          </div>
-                  
-          <div style="background-color: #e6e6e6;padding:12px;" class="d-sm-flex align-items-left justify-content-between mb-4">
-           <span  class="border-bottom">
-           
-            <p class="p mb-0 text-gray-800">${api.getApiCode()}</p>
-            </span>
-          </div>
-          <input type="hidden" id="apiID" name="apiID" value="${api.getAPIId()}"/>
-  </div>      <!-- End of Main Content -->
+
+          <!-- Content Row -->
+  
+      </div>
+      <!-- End of Main Content -->
 
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
@@ -171,77 +228,7 @@
   <!-- Page level custom scripts -->
   <script src="resources/js/demo/chart-area-demo.js"></script>
   <script src="resources/js/demo/chart-pie-demo.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  
-<script>
-$(document).ready(function() {
-	  $(document).on("click","#purchasea",function(){
-		  var r = confirm("Are you sure to purchase?");
-		  if (r == true) {
-	    var apiID=$("#apiID").val();
-	    alert(apiID);
-	    if (apiID.trim()) {
-	    // is empty or whitespace
-	   var response="";
-	   var qurl="http://localhost:8080/controller/addapitobill.do";
-	   alert(qurl);
 
-	   $.ajax({
-
-	            type: "POST",
-	            cache: false,
-	            data:{'apiid':apiID},
-	            url: qurl,
-	            dataType: "json",
-	            success: function(response) { 
-	            alert(response);
-	            	var res=response.Result;  
-	            if (res=='1')
-	            {
-				alert("Added to Billing");
-				
-				}
-	            else 
-	            {
-	            	alert("Error while adding");
-	            }
-	            },
-	            error: function(jqXHR) {
-	                alert("error: " + jqXHR.status);
-	            }
-	        })
-	}
-	else{
-	alert("Song is empty")
-	}
-	}
-	  }	  
-	  );
-	  
-	  
-	  });
-function myFunction(apiid) {
-  var txt;
-  var r = confirm("Are you sure to purchase?");
-  if (r == true) {
-	  
-	  var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	     alert("Added To Bill");
-	     document.getElementById("purchase").parentNode.removeChild(document.getElementById("purchase"));;
-	    }
-	  };
-	  xhttp.open("POST", "http://localhost:8080/controller/addapitobill.do", true);
-	  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-	  xhttp.send("apiid="+apiid);
-  } else {
-
-  }
-  document.getElementById("demo").innerHTML = txt;
-}
-</script>
 </body>
 
 </html>

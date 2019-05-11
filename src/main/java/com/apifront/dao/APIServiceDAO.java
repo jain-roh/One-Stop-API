@@ -23,13 +23,13 @@ public class APIServiceDAO extends DAO {
 	public List<API> searchAPI(API a) throws UserException {
 		try {
 			begin();
-			Criteria countQuery = getSession().createCriteria(API.class).add(Example.create(a));
-			countQuery.setProjection(Projections.rowCount());
+			Criteria countQuery = getSession().createCriteria(API.class).add(Example.create(a).excludeZeroes());
+//			countQuery.setProjection(Projections.rowCount());
 
-			Query q = getSession().createQuery("from API");
-			
+			Query q = getSession().createQuery("from API where APIId=:APIId");
+			q.setLong("APIId", a.getAPIId());
 			List<API> apis = q.list();
-				System.out.print("List fetched");
+				System.out.print("List fetched" + apis.size());
 				commit();
 			return apis;
 				
@@ -39,11 +39,30 @@ public class APIServiceDAO extends DAO {
 		}
 	}
 
-	public long fetchApiCount(boolean active) throws UserException{
+	public List<API> searchTheAPI(API a) throws UserException {
+		try {
+			begin();
+		//	Criteria countQuery = getSession().createCriteria(API.class).add(Example.create(a).excludeZeroes());
+//			countQuery.setProjection(Projections.rowCount());
+
+			Query q = getSession().createQuery("from API where APIName=:APIName");
+			q.setString("APIName", a.getApiName());
+			List<API> apis = q.list();
+				System.out.print("List fetched" + apis.size());
+				commit();
+			return apis;
+				
+		} catch (HibernateException e) {
+			rollback();
+			throw new UserException("Username Already exist");
+		}
+	}
+	
+	
+	public long fetchApiCount(API api) throws UserException{
 		try
 		{
-		API api=new API();
-		api.setApiActive(active);
+		
 		
 		begin();
 		Criteria countQuery = getSession().createCriteria(API.class).add(Example.create(api));
@@ -117,6 +136,22 @@ commit();
 			getSession().save(b);
 			commit();
 			return b;
+		} catch (HibernateException e) {
+			rollback();
+			throw new UserException("Exception while creating user: " + e.getMessage());
+		}
+	}
+
+	
+	public List<Billing> searchBilling(Billing b) throws UserException {
+		try {
+			begin();
+			
+			Criteria criteria=getSession().createCriteria(Billing.class).add(Example.create(b).excludeNone().excludeZeroes());
+			
+			List<Billing> billings =criteria.list();
+			commit();
+			return billings;
 		} catch (HibernateException e) {
 			rollback();
 			throw new UserException("Exception while creating user: " + e.getMessage());

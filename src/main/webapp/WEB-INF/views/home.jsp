@@ -5,12 +5,19 @@
 	pageEncoding="UTF-8"%>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script>
+var app = angular.module('plunker', []);
+
+app.controller('MainCtrl', function($scope) {
+  $scope.name = 'World';
+});
+</script>
 <!------ Include the above in your HEAD tag ---------->
 
 <!---*************welcome this is my simple empty strap by John Niro Yumang ******************* -->
 
-<html lang="en">
+<html lang="en" ng-app="plunker" >
 
 	<title>Sign up One Stop API</title>
 
@@ -42,7 +49,7 @@
 	</style>
 		<!---- Font awesom link local ----->
 	</head>
-	<body>
+	<body ng-controller="MainCtrl">
 	<div class="container-fluid">
 		<div class="container">
 			<h2 class="text-center" id="title">One Stop API</h2>
@@ -50,32 +57,35 @@
  			<hr>
 			<div class="row">
 				<div class="col-md-5">
- 					<form role="form" method="post" action="signup.htm" >
+					<c:if test="${error!=null }">
+					<h6 style="text-color:red;">"Error : ${error}"</h6>
+					</c:if>
+ 					<form name="register" role="form" method="post" action="signup.htm" >
 						<fieldset>							
 							<p class="text-uppercase pull-center"> SIGN UP.</p>	
  							<div class="form-group">
-								<input type="text" id="username" name="name" class="form-control input-lg" placeholder="Name"/>
-							</div>
+								<input type="text" ng-model="username" id="username" name="name" class="form-control input-lg" placeholder="Name" required>
+								<span ng-show="register.username.$error.required">Please enter something!</span>							</div>
 
 							<div class="form-group">
-							<input type="email" id="email" name="userName" class="form-control input-lg" placeholder="Email Address"/>
+							<input type="email" id="email" name="userName" class="form-control input-lg" placeholder="Email Address" required>
 							</div>
 							<div class="form-group">
-							<input type="password" id="password" name="userPassword" path="userPassword" class="form-control input-lg" placeholder="Password"/>
+							<input type="password" id="password" name="userPassword" path="userPassword" class="form-control input-lg" placeholder="Password" required>
 							</div>
 								<div class="form-group">
 
-								<input type="password" name="password2" id="password2" class="form-control input-lg" placeholder="Re-type Password">
+								<input type="password" name="password2" id="password2" class="form-control input-lg" placeholder="Re-type Password" required>
 							</div>
 							<div class="form-group">
 							User Typer :
-							<input type="radio" value="business" name="type"/> Business
-							<input type="radio" value="user" name="type"/> User
+							<input type="radio" value="business" name="type" required> Business
+							<input type="radio" value="user" name="type" required> User
 
 							</div>
 							<div class="form-check">
 								<label class="form-check-label">
-								  <input type="checkbox" class="form-check-input">
+								  <input type="checkbox" class="form-check-input" required>
 								  By Clicking register you're agree to our policy & terms
 								</label>
 							  </div>
@@ -96,14 +106,14 @@
 							<p class="text-uppercase"> Login using your account: </p>	
  								
 							<div class="form-group">
-								<input type="email" name="userName" id="username" class="form-control input-lg" placeholder="username">
+								<input type="email" name="userName" id="username" class="form-control input-lg" placeholder="username" required>
 							</div>
 							<div class="form-group">
-								<input type="password" name="userPassword" id="password" class="form-control input-lg" placeholder="Password">
+								<input type="password" name="userPassword" id="password" class="form-control input-lg" placeholder="Password" required>
 							</div>
 								User Type :
-							<input type="radio" value="business" name="type"/> Business
-							<input type="radio" value="user" name="type"/> User
+							<input type="radio" value="business" name="type"required> Business
+							<input type="radio" value="user" name="type" required> User
 							
 							<div>
 								<input type="submit" class="btn btn-md" value="Sign In">

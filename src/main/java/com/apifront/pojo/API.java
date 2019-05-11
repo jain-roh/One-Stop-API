@@ -13,18 +13,30 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 
 @Entity
 public class API {
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
 private long APIId;
+@NotNull
+@NotEmpty
 @Column(name="APIName",nullable=false)
 private String apiName;
+@NotNull
+@NotEmpty
 @Column(name="APIDesc")
 private String apiDesc;
+@NotNull
+@NotEmpty
 @Column(name="APICode",nullable=false)
 private String apiCode;
+@NotNull
+@Digits(integer=20, fraction=2)
 @Column(name="APICost",nullable=false)
 private float apiCost;
 

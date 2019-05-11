@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,8 @@ public class HomeController {
 	 */
 	@Autowired
 	SignUpDAO signupdao;
+	
+	
 	
 	@RequestMapping(value = "/signup1.htm", method = RequestMethod.POST)
 	public String homeSignIn(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {
@@ -107,7 +110,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value = "/signup.htm", method = RequestMethod.POST)
-	public String homeRegister(Locale locale, Model model,HttpServletRequest req) {
+	public String homeRegister(Locale locale, Model model,HttpServletRequest req,HttpServletResponse res) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		if(req.getParameter("type").equals("business")){
 			
@@ -115,7 +118,8 @@ public class HomeController {
 		b.setUserName(req.getParameter("userName"));
 		b.setUserPassword(req.getParameter("userPassword"));
 		b.setName(req.getParameter("name"));
-
+		//BusinessValidator businessvalidator=new BusinessValidator();
+		//businessvalidator.validate(b, errors);
 		try
 		{
 		b=signupdao.createBusiness(b);
@@ -125,7 +129,16 @@ public class HomeController {
 		catch (Exception e) {
 			System.out.println(e.getMessage());
 			// TODO: handle exception
-			return "error";
+			try
+			{
+				model.addAttribute("error", "Username Exist");
+				return "home";
+			}
+			catch(Exception ex)
+			{
+				return "error";
+
+			}
 		}
 		}
 		else
@@ -144,7 +157,17 @@ public class HomeController {
 			catch (Exception e) {
 				System.out.println(e.getMessage());
 				// TODO: handle exception
-				return "error";
+				try
+				{
+					model.addAttribute("error", "Username Exist");
+				return "home";
+
+				}
+				catch(Exception ex)
+				{
+					return "error";
+
+				}
 
 			}
 		}
@@ -161,16 +184,28 @@ public class HomeController {
 			b.setUserName(req.getParameter("userName"));
 			b.setUserPassword(req.getParameter("userPassword"));
 			b=signupdao.loginBusiness(b);
+			if(b==null)
+			{
+				model.addAttribute("error", "Username or Wrong Password");
+				return "home";
+			}
+			
+			else
+			{
 			HttpSession session=req.getSession();
 			session.setAttribute("business", b);
 			return "business";
+			
+				
+			}
+			
 			}
 			catch(Exception ex)
 
 		{
 				
-		System.out.print(ex.getMessage());	
-		return "error";
+				model.addAttribute("error", "Username or Wrong Password");
+				return "home";
 		}
 			
 		}
@@ -182,14 +217,22 @@ public class HomeController {
 			try
 			{
 			u=signupdao.loginUser(u);
+			if(u==null)
+			{
+				model.addAttribute("error", "Username or Wrong Password");
+				return "home";
+			}
+			else
+			{
 			HttpSession session=req.getSession();
 			session.setAttribute("user", u);
 			return "user";
 			}
+			}
 			catch(Exception ex)
 			{
-				System.out.print(ex.getMessage());
-				return "error";
+				model.addAttribute("error", "Username or Wrong Password");
+				return "home";
 			}
 
 		}

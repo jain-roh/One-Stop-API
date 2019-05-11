@@ -17,7 +17,7 @@
   <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
@@ -50,11 +50,7 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>API</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Service</span></a>
-      </li>
+
       <!-- Divider -->
       <hr class="sidebar-divider">
 
@@ -64,19 +60,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Profile</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Basic Details</h6>
-            <a class="collapse-item" href="buttons.html">Image</a>
-            <a class="collapse-item" href="cards.html">Profile</a>
-          </div>
-        </div>
-      </li>
+
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
@@ -87,9 +71,8 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Bills:</h6>
-            <a class="collapse-item" href="utilities-color.html">Last Month</a>
-            <a class="collapse-item" href="utilities-border.html">API Uses</a>
-            <a class="collapse-item" href="utilities-border.html">Services Uses</a>
+            <a class="collapse-item" href="lastMonthReport.pdf">Last Month</a>
+            <a class="collapse-item" href="apiUses.do">API Uses</a>
             
           </div>
         </div>
@@ -138,7 +121,7 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <a href="logout.htm" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"> Logout</a>
           </div>
 
           <!-- Content Row -->

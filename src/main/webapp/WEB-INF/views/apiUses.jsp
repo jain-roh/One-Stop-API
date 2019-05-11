@@ -14,7 +14,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Add Api</title>
+  <title>SB Admin 2 - Dashboard</title>
 
   <!-- Custom fonts for this template-->
   <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -31,7 +31,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/controller">
@@ -51,6 +51,13 @@
           <span>API</span></a>
       </li>
 
+
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
 
       <!-- Heading -->
     
@@ -72,48 +79,114 @@
           </button>
 
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="get" action="search.htm">
+          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" name="q" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <input class="btn btn-primary" type="submit" value="submit">
-                
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
               </div>
             </div>
-            </form>
+          </form>
+
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+</ul>
+            <!-- Nav Item - Alerts -->
 
 
         </nav>
-    
-          <!-- End of Topbar -->
- <div class="container">
+        <!-- End of Topbar -->
 
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">${api.getApiName()}</h1>
-<c:if test="${viewPurchase==true}">
- <input type="button"  onclick="myFunction(${api.getAPIId()})" id="purchase" class="btn btn-large btn-primary" data-toggle="confirmation" 
-  value="Purchase"/>          
-  </c:if>
-  
-  </div>
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">API</h1>
+          </div>
+          <c:set var="count" value="0" scope="page" />
           
+<c:forEach items="${api}" var="apiL">
+         
+         
+     
+          <!-- Content Row -->
+                <c:if test = "${count%4==0}">
+                 <c:set var="count" value="${count+=1}" scope="page"/>
+          
+          <div class="row">
+          </c:if>
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                                 <a href="api.htm?q=${apiL.getAPIId()}">
+                    
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">${apiL.getApiName()}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">$${apiL.getApiCost()}</div>
+                    </div></a>
+                    
+                    <div class="col-auto">
+                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+                              <c:if test = "${count%4==0}">
+            </div>
+            </c:if>
+            
+            <!-- Earnings (Monthly) Card Example -->
            
-          <div  class="d-sm-flex align-items-left justify-content-between mb-4">
-            <p class="p mb-0 text-gray-800">API Cost : ${api.getApiCost()}</p>
+            <!-- Earnings (Monthly) Card Example -->
+                        <!-- Pending Requests Card Example -->
+
+ </c:forEach>
+                         <c:if test ="${prevD==true}">
+ 
+            <a href="?q=${ prevPage}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Prev</a>
+</c:if>        
+                 <c:if test ="${nextD==true}">
+ 
+            <a href="?q=${nextPage}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Next</a>
+</c:if>
+         
+            <!-- Pie Chart -->
+          
+              <!-- Approach -->
+
+
+            </div>
           </div>
-           
-           <div style="background-color: #e6e6ff;padding:12px;" class="d-sm-flex align-items-left justify-content-between mb-4">
-            <p class="p mb-0 text-gray-800">${api.getApiDesc()}</p>
-          </div>
-                  
-          <div style="background-color: #e6e6e6;padding:12px;" class="d-sm-flex align-items-left justify-content-between mb-4">
-           <span  class="border-bottom">
-           
-            <p class="p mb-0 text-gray-800">${api.getApiCode()}</p>
-            </span>
-          </div>
-          <input type="hidden" id="apiID" name="apiID" value="${api.getAPIId()}"/>
-  </div>      <!-- End of Main Content -->
+
+        <!-- /.container-fluid -->
+
+      <!-- End of Main Content -->
 
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
@@ -171,77 +244,7 @@
   <!-- Page level custom scripts -->
   <script src="resources/js/demo/chart-area-demo.js"></script>
   <script src="resources/js/demo/chart-pie-demo.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  
-<script>
-$(document).ready(function() {
-	  $(document).on("click","#purchasea",function(){
-		  var r = confirm("Are you sure to purchase?");
-		  if (r == true) {
-	    var apiID=$("#apiID").val();
-	    alert(apiID);
-	    if (apiID.trim()) {
-	    // is empty or whitespace
-	   var response="";
-	   var qurl="http://localhost:8080/controller/addapitobill.do";
-	   alert(qurl);
 
-	   $.ajax({
-
-	            type: "POST",
-	            cache: false,
-	            data:{'apiid':apiID},
-	            url: qurl,
-	            dataType: "json",
-	            success: function(response) { 
-	            alert(response);
-	            	var res=response.Result;  
-	            if (res=='1')
-	            {
-				alert("Added to Billing");
-				
-				}
-	            else 
-	            {
-	            	alert("Error while adding");
-	            }
-	            },
-	            error: function(jqXHR) {
-	                alert("error: " + jqXHR.status);
-	            }
-	        })
-	}
-	else{
-	alert("Song is empty")
-	}
-	}
-	  }	  
-	  );
-	  
-	  
-	  });
-function myFunction(apiid) {
-  var txt;
-  var r = confirm("Are you sure to purchase?");
-  if (r == true) {
-	  
-	  var xhttp = new XMLHttpRequest();
-	  xhttp.onreadystatechange = function() {
-	    if (this.readyState == 4 && this.status == 200) {
-	     alert("Added To Bill");
-	     document.getElementById("purchase").parentNode.removeChild(document.getElementById("purchase"));;
-	    }
-	  };
-	  xhttp.open("POST", "http://localhost:8080/controller/addapitobill.do", true);
-	  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-	  xhttp.send("apiid="+apiid);
-  } else {
-
-  }
-  document.getElementById("demo").innerHTML = txt;
-}
-</script>
 </body>
 
 </html>
